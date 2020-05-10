@@ -13,20 +13,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getOrCreate(IcqUserDto userDto) {
-        User user = userRepository.findByExternalId(userDto.getExternalId());
-        if (user == null) {
-            user = new User();
-            user.setName(userDto.getName());
-            user.setLastName(userDto.getLastName());
-            user.setNick(userDto.getNick());
-            user.setExternalId(userDto.getExternalId());
-            user.setChatId(userDto.getChatId());
+    public User create(IcqUserDto userDto) {
+        User user = new User();
+        user.setName(userDto.getName());
+        user.setLastName(userDto.getLastName());
+        user.setNick(userDto.getNick());
+        user.setExternalId(userDto.getExternalId());
+        user.setChatId(userDto.getChatId());
 
-            userRepository.save(user);
-
-        }
+        userRepository.save(user);
 
         return user;
+    }
+
+    public User get(IcqUserDto userDto) {
+        return userRepository.findByExternalId(userDto.getExternalId());
     }
 }
