@@ -1,10 +1,14 @@
 package ru.nigmatzianov.shoppingListBot.domain;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Transactional
 @Table(name = "usr")
 public class User {
     @Id
@@ -16,7 +20,7 @@ public class User {
     private String nick;
     private String chatId;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<ShoppingList> shoppingLists = new ArrayList<>();
 
     public Long getId() {
@@ -76,6 +80,9 @@ public class User {
     }
 
     public ShoppingList getActiveShoppingList() {
+        if (this.shoppingLists.isEmpty()) {
+            return null;
+        }
         ShoppingList activeShoppingList = null;
         for (ShoppingList list : this.shoppingLists) {
             if (null == activeShoppingList) {
@@ -87,6 +94,10 @@ public class User {
             }
         }
 
-        return activeShoppingList;
+        if (!activeShoppingList.isReady()) {
+            return activeShoppingList;
+        } else {
+            return null;
+        }
     }
 }

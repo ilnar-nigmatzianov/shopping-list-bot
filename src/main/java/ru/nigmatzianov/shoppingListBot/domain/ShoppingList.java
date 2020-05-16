@@ -16,11 +16,11 @@ public class ShoppingList {
     @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<ShoppingListItem> items = new ArrayList<>();
 
-    private String status;
+    private String status = "pending";
 
     public Long getId() {
         return id;
@@ -52,5 +52,13 @@ public class ShoppingList {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isReady() {
+        return "ready".equals(this.status);
+    }
+
+    public void setReady() {
+        this.status = "ready";
     }
 }

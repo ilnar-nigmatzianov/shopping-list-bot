@@ -5,6 +5,8 @@ import ru.nigmatzianov.shoppingListBot.domain.User;
 import ru.nigmatzianov.shoppingListBot.dto.IcqUserDto;
 import ru.nigmatzianov.shoppingListBot.repo.UserRepository;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
