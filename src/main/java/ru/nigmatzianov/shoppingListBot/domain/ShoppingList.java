@@ -13,10 +13,9 @@ public class ShoppingList {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "shoppingList", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<ShoppingListItem> items = new ArrayList<>();
 

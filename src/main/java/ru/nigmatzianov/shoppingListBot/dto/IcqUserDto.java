@@ -1,8 +1,10 @@
 package ru.nigmatzianov.shoppingListBot.dto;
 
+import org.springframework.stereotype.Service;
 import ru.mail.im.botapi.fetcher.Chat;
 import ru.mail.im.botapi.fetcher.User;
 
+@Service
 public class IcqUserDto {
     private String name;
     private String lastName;
@@ -30,7 +32,7 @@ public class IcqUserDto {
         return chatId;
     }
 
-    public static IcqUserDto create(User user, Chat chat) {
+    public IcqUserDto create(User user, Chat chat) {
         IcqUserDto userDto = new IcqUserDto();
 
         userDto.externalId = user.getUserId();

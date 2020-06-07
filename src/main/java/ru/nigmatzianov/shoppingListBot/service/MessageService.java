@@ -6,14 +6,17 @@ import ru.mail.im.botapi.fetcher.event.NewMessageEvent;
 import ru.nigmatzianov.shoppingListBot.domain.Message;
 import ru.nigmatzianov.shoppingListBot.domain.User;
 import ru.nigmatzianov.shoppingListBot.repo.MessageRepository;
-
-import java.util.List;
+import ru.nigmatzianov.shoppingListBot.repo.UserRepository;
 
 @Service
 public class MessageService {
     @Autowired
     private MessageRepository repo;
-    public Message storeByIcqEvent(User user, NewMessageEvent event) {
+    @Autowired
+    private UserRepository userRepository;
+
+    public Message storeByIcqEvent(NewMessageEvent event) {
+        User user = userRepository.findByExternalId(event.getFrom().getUserId());
         Message message = new Message();
         message.setOwner(user);
         message.setExternalId(event.getMessageId());

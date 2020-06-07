@@ -1,9 +1,12 @@
-package ru.nigmatzianov.shoppingListBot;
+package ru.nigmatzianov.shoppingListBot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.mail.im.botapi.BotApiClient;
 import ru.mail.im.botapi.BotApiClientController;
+import ru.nigmatzianov.shoppingListBot.icq.EventHandler;
+
+import java.util.SortedSet;
 
 @Configuration
 public class AppConfig {

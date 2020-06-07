@@ -1,5 +1,7 @@
 package ru.nigmatzianov.shoppingListBot.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,10 @@ public class ShoppingListItem {
     private Long id;
     private String text;
     private String status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private ShoppingList shoppingList;
 
     public Long getId() {
         return id;
@@ -41,5 +47,13 @@ public class ShoppingListItem {
 
     public boolean isPending() {
         return this.status.equals(PENDING);
+    }
+
+    public ShoppingList getShoppingList() {
+        return shoppingList;
+    }
+
+    public void setShoppingList(ShoppingList shoppingList) {
+        this.shoppingList = shoppingList;
     }
 }

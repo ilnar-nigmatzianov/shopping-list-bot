@@ -1,6 +1,7 @@
 package ru.nigmatzianov.shoppingListBot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,13 @@ public class ShoppingListController {
     private ShoppingListRepository shoppingListRepository;
     @Autowired
     private ShoppingListItemRepository shoppingListItemRepository;
+    @Value("${spring.profiles.active:prod}")
+    private String profile;
     @GetMapping("/{shoppingList}")
     public String getList(@PathVariable ShoppingList shoppingList, Model model) {
         Iterable<ShoppingListItem> items;
         model.addAttribute("shoppingList", shoppingList);
+        model.addAttribute("profile", profile);
 
         return "list";
     }

@@ -27,6 +27,10 @@
     </div>
     </div>
 </div>
-<script src="http://localhost:8000/main.js"></script>
+<#if profile == "dev">
+    <script src="http://localhost:8000/main.js"></script>
+<#else>
+    <script src="/js/main.js"></script>
+</#if>
 </body>
 </html>
